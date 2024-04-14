@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class CartItem {
     private Item item;
     private int quantity;
-    private boolean inStock;//假设无线库存
+    private boolean inStock;//假设无限库存
     private BigDecimal total;//总价
 
     public boolean isInStock() {

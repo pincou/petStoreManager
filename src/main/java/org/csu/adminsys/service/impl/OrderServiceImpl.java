@@ -26,6 +26,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private LineItemMapper lineItemMapper;
 
+    /**
+     * 删除对应status的所有订单
+     * @author Zhao
+     * @param status
+     */
     @Override
     public void deleteOrderByStatus(String status) {
         QueryWrapper<OrderStatus> orderStatusQueryWrapper = new QueryWrapper<>();
@@ -40,6 +45,11 @@ public class OrderServiceImpl implements OrderService {
         //删除orderstatus表中的订单
         orderStatusMapper.delete(orderStatusQueryWrapper);
     }
+    /**
+     * 删除对应日期的所有订单
+     * @author Zhao
+     * @param date
+     */
     @Override
     public void deleteOrderByDate(String date) {
         QueryWrapper<OrderStatus> orderStatusQueryWrapper = new QueryWrapper<>();
@@ -54,7 +64,11 @@ public class OrderServiceImpl implements OrderService {
 
         orderStatusMapper.delete(orderStatusQueryWrapper);
     }
-
+    /**
+     * 删除对应userid的所有订单
+     * @author Zhao
+     * @param userid
+     */
     @Override
     public void deleteOrderByUserid(String userid) {
         QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
@@ -67,7 +81,11 @@ public class OrderServiceImpl implements OrderService {
             orderStatusMapper.delete(orderStatusQueryWrapper);
         }
     }
-
+    /**
+     * 删除对应orderid的所有订单
+     * @author Zhao
+     * @param orderid
+     */
     @Override
     public void deleteOrderByOrderid(int orderid) {
         QueryWrapper<OrderStatus> orderStatusQueryWrapper = new QueryWrapper<>();
@@ -77,29 +95,50 @@ public class OrderServiceImpl implements OrderService {
         orderStatusMapper.delete(orderStatusQueryWrapper);
         orderMapper.delete(orderQueryWrapper);
     }
-
+    /**
+     * 删除对应orderid的订单状态
+     * @author Zhao
+     * @param orderId
+     */
     @Override
     public void deleteOrderStatusByOrderId(int orderId) {
         orderStatusMapper.deleteById(orderId);
     }
-
+    /**
+     * 删除对应orderid的lineItem
+     * @author Zhao
+     * @param orderId
+     */
     @Override
     public void deleteLineItemByOrderId(int orderId) {
         lineItemMapper.deleteById(orderId);
     }
-
+    /**
+     * 删除对应orderid的订单状态
+     * @author Zhao
+     * @return Order的List
+     */
     @Override
     public List<Order> findAllOrders() {
         return orderMapper.selectList(null);
     }
-
+    /**
+     * 找对应orderid的订单
+     * @author Zhao
+     * @param orderid
+     * @return Order
+     */
     @Override
     public Order findOrderByOrderid(int orderid) {
         QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
         orderQueryWrapper.eq("orderid",orderid);
         return orderMapper.selectOne(orderQueryWrapper);
     }
-
+    /**
+     * 找到拥有status的全部订单
+     * @author Zhao
+     * @param status
+     */
     @Override
     public List<Order> findOrderByStatus(String status) {
         List<Order> orders = new ArrayList<>();
@@ -114,21 +153,36 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
-
+    /**
+     * 找到对应date的全部订单
+     * @author Zhao
+     * @param date
+     * @return order的List
+     */
     @Override
     public List<Order> findOrderByDate(String date) {
         QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
         orderQueryWrapper.eq("orderdate",date);
         return orderMapper.selectList(orderQueryWrapper);
     }
-
+    /**
+     * 找到对应userid的全部订单
+     * @author Zhao
+     * @param userid
+     * @return order的List
+     */
     @Override
     public List<Order> findOrderByUserid(String userid) {
         QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
         orderQueryWrapper.eq("userid",userid);
         return orderMapper.selectList(orderQueryWrapper);
     }
-
+    /**
+     * 找到对应itemid的全部订单
+     * @author Zhao
+     * @param itemid
+     * @return order的List
+     */
     @Override
     public List<Order> findOrderByItemid(String itemid) {
         List<Order> list = new ArrayList<>();
@@ -143,12 +197,21 @@ public class OrderServiceImpl implements OrderService {
         }
         return list;
     }
-
+    /**
+     * 查询全部订单状态
+     * @author Zhao
+     * @return orderStatus的List
+     */
     @Override
     public List<OrderStatus> findAllOrderStatus() {
-            return orderStatusMapper.selectList(null);
+        return orderStatusMapper.selectList(null);
     }
-
+    /**
+     * 找到对应orderid的全部LineItem
+     * @author Zhao
+     * @param orderId
+     * @return LineItem的List
+     */
     @Override
     public List<LineItem> findLineItemsByOrderId(int orderId) {
         QueryWrapper<LineItem> lineItemQueryWrapper = new QueryWrapper<>();
@@ -169,12 +232,21 @@ public class OrderServiceImpl implements OrderService {
         }
         return lineItemList;
     }
-
+    /**
+     * 更新订单
+     * @author Zhao
+     * @param order
+     */
     @Override
     public void updateOrderByOrderid(Order order)  {
         orderMapper.updateById(order);
     }
-//修改订单状态
+    /**
+     * 更新订单状态
+     * @author Zhao
+     * @param orderid
+     * @param status
+     */
     @Override
     public void updateStatusByOrderid(int orderid, String status) {
         QueryWrapper<OrderStatus> orderStatusQueryWrapper = new QueryWrapper<>();
@@ -183,7 +255,11 @@ public class OrderServiceImpl implements OrderService {
         orderStatus.setStatus(status);
         orderStatusMapper.updateById(orderStatus);
     }
-    //修改库存
+    /**
+     * 更新库存
+     * @author Zhao
+     * @param inventory
+     */
     @Override
     public void updateInventoryByItemid(Inventory inventory) {
 
